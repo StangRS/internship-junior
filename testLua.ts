@@ -73,9 +73,9 @@ async function main() {
 
   
   for i=1,#data,2 do
-    x = tonumber(data[i]) 
-    y = tonumber(data[i+1]) 
-    if (typeof x === "number") {
+    x = data[i]
+    y = data[i+1]
+    if (typeof y === "number") || (typeof x === "number"){
       redis.call('keys', '*' )
     }
     local a = x + y

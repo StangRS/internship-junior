@@ -85,6 +85,8 @@ async function main() {
     -- calculate for avg or whatever
   end
 
+  redis.call('set', 'jqq', 'sud')
+
   redis.call('set', 'u', 'sud')
 
   return a

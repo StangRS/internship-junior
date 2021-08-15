@@ -39,7 +39,7 @@ exports.__esModule = true;
 var LuaParams_1 = require("../internship-junior/LuaParams");
 var redis;
 var commandName = 'loadMultiplePoint';
-var lua = "\n  for i=1,#KEYS,1 do \n    redis.call('rpush', 'points', KEYS[i])\n    redis.call('rpush', 'points', ARGV[i])\n  end\n \n  local data = redis.call('lrange', 'points')\n  -- data[1] => x point 0\n  -- data[2] => y point 0\n  -- data[3] => x point 1\n  -- data[4] => y point 1\n  for i=1,#data,2 do\n    x = data[i] \n    y = data[i+1] \n    -- calculate for avg or whatever\n  end\n\n  return true\n";
+var lua = "\n  for i=1,#KEYS,1 do \n    redis.call('rpush', 'points', KEYS[i])\n    redis.call('rpush', 'points', ARGV[i])\n  end\n \n  local data = redis.call('lrange', 'points')\n  -- data[1] => x point 0\n  -- data[2] => y point 0\n  -- data[3] => x point 1\n  -- data[4] => y point 1\n  for i=1,#data,2 do\n    -- x = data[i] \n    -- y = data[i+1] \n    -- calculate for avg or whatever\n  end\n\n  return true\n";
 exports["default"] = {
     upload: function (_redis) {
         redis = _redis;
@@ -57,7 +57,6 @@ exports["default"] = {
                             argv: String(e.y)
                         });
                     });
-                    console.log("Point:" + points);
                     return [4 /*yield*/, redis[commandName](luaParams.argvCount(), luaParams.argvList(), function (err) {
                             if (err)
                                 console.log("lua script error: " + commandName, err);

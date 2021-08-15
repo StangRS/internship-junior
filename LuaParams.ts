@@ -1,6 +1,6 @@
 export type ILuaParams = {
   key: string;
-  argv: number;
+  argv: string;
 };
 
 export default class {
@@ -26,9 +26,8 @@ export default class {
     return this.rawParams.length;
   }
 
-  // { [key: string]: number }[]
-  public argvList():  (string | number)[] {
-    const list: (string | number)[] = [];
+  public argvList(): string[] {
+    const list: string[] = [];
     for (const p of this.rawParams) {
       list.push(p.key);
     }

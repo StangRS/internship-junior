@@ -16,8 +16,8 @@ const lua = `
   -- data[3] => x point 1
   -- data[4] => y point 1
   for i=1,#data,2 do
-    x = data[i] 
-    y = data[i+1] 
+    -- x = data[i] 
+    -- y = data[i+1] 
     -- calculate for avg or whatever
   end
 
@@ -32,14 +32,12 @@ export default {
 
   load: async (points: { x: number; y: number }[]) => {
     const luaParams = new LuaParams();
-
     points.forEach((e) => {
       luaParams.add({
         key: String(e.x),
         argv: String(e.y),
       });
     });
-    console.log("Point:" + points);
 
     const result = await (redis as any)[commandName](
       luaParams.argvCount(),
@@ -49,6 +47,5 @@ export default {
       },
     );
     return result;
-    
   },
 };

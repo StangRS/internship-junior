@@ -65,7 +65,7 @@ async function main() {
     redis.call('rpush', 'points', ARGV[i])
   end
  
-  redis.call('set', 'j', 'sud')
+  redis.call('set', 'jaaaaaa', 'sud')
 
   local data = redis.call('lrange', 'points')
   -- data[1] => x point 0

@@ -44,26 +44,6 @@ async function main() {
 
 void main();
 
-<<<<<<< Updated upstream
-=======
-console.log("----------------------------------------------------------------");
-console.log(xyPointtest[0][0]);
-console.log(xyPointtest[0][1]);
-console.log(xyPointtest[1][0]);
-console.log(xyPointtest[1][1]);
-console.log(xyPointtest[2][0]);
-console.log(xyPointtest[2][1]);
-
-
-
-console.log("----------------------------------------------------------------");
-console.log(xyPointtest[2][1]);
-console.log(xyPointtest[2][1]);
-console.log(xyPointtest[2][1]);
-// wow what it is
-// loadmpoint.default.load([]);
-
->>>>>>> Stashed changes
 // Utility to handle graph information with complex methods for public use.
 // Point (x,y)
 // Line

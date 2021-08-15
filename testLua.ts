@@ -112,7 +112,7 @@ async function main() {
 
       for (let i = 0; i < points.length; i++) {
         console.log("e1 :", e);
-        for (const [q, v] of Object.entries(e)) {
+        for (const [q, v] of Object(e)) {
           console.log("v :", v);
           // v.forEach((e) => {
           //   a = +e

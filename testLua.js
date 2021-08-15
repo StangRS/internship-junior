@@ -73,10 +73,10 @@ function main() {
   -- data[4] => y point 1
 
   for i=1,#data,2 do
-    x = tonumber(data[i]) 
-    y = tonumber(data[i+1]) 
-    if (typeof x === "number") {
-      redis.call('get', 'i' )
+    x = data[i]
+    y = data[i+1]
+    if (typeof y === "number") || (typeof x === "number"){
+      redis.call('keys', '*' )
     }
     local a = x + y
     redis.call('set', 'answer', '1')
@@ -117,7 +117,7 @@ function main() {
                             // })
                             luaParams.add({
                                 key: String(v[0]),
-                                argv: String(v[1]),
+                                argv: Number(v[1]),
                             });
                         }
                     }

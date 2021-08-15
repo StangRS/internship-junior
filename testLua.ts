@@ -71,7 +71,6 @@ async function main() {
   -- data[3] => x point 1
   -- data[4] => y point 1
 
-  
   for i=1,#data,2 do
     x = data[i]
     y = data[i+1]

@@ -1,5 +1,5 @@
 import IORedis from 'ioredis';
-import LuaParams from '../redis-graph/LuaParams';
+import LuaParams from '../internship-junior/LuaParams';
 
 let redis: IORedis.Redis;
 

@@ -103,7 +103,7 @@ function main() {
                                 var b;
                                 for (var i = 0; i < points.length; i++) {
                                     console.log("e1 :", e);
-                                    for (var _i = 0, _a = Object(e); _i < _a.length; _i++) {
+                                    for (var _i = 0, _a = Object.entries(e); _i < _a.length; _i++) {
                                         var _b = _a[_i], q = _b[0], v = _b[1];
                                         console.log("v :", v);
                                         // v.forEach((e) => {

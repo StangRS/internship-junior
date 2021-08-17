@@ -57,39 +57,23 @@ const xyPointtest: number[][] = [
 
 async function main() {
   const lua = `
-
-  redis.call('set', 'i', 1)
-
   for i=1,#KEYS,1 do 
     redis.call('rpush', 'points', KEYS[i])
     redis.call('rpush', 'points', ARGV[i])
   end
- 
-  redis.call('set', 'jaaaaaa', 'sud')
 
   local data = redis.call('lrange', 'points')
   -- data[1] => x point 0
   -- data[2] => y point 0
   -- data[3] => x point 1
   -- data[4] => y point 1
-
   for i=1,#data,2 do
     x = data[i]
-    y = data[i+1]
-    if (typeof y === "number") || (typeof x === "number"){
-      redis.call('keys', '*' )
-    }
-    local a = x + y
-    redis.call('set', 'answer', '1')
-    redis.call('set', 'i', 'sud')
+    y = data[i+1])
     -- calculate for avg or whatever
   end
 
-  redis.call('set', 'jqq', 'sud')
-
-  redis.call('set', 'u', 'sud')
-
-  return a
+  return true
 `;
 
   const redis = new IORedis();
@@ -115,13 +99,9 @@ async function main() {
 
       for (let i = 0; i < points.length; i++) {
         console.log("e1 :", e);
+
         for (const [q, v] of Object.entries(e)) {
           console.log("v :", v);
-          // v.forEach((e) => {
-          //   a = +e
-          //   b = +e
-          //   console.log("e2 :", e," ", a," ",b)
-          // })
           luaParams.add({
             key: String(v[0]),
             argv: String(v[1]),

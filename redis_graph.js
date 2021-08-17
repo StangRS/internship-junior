@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const ioredis_1 = require("ioredis");
 // import { METHODS } from 'http';
-//   const lua = ` 
+//   const lua = `
 //   redis.call('set', 'i', 'sud')
 //   redis.call('sadd', KEYS[1], ARGV[1])
 //   redis.call('sadd', KEYS[1], 's4ss3')
@@ -20,19 +20,19 @@ const ioredis_1 = require("ioredis");
 //   redis.call('flushall')
 //   return members
 // `;
-//   const lua = ` 
+//   const lua = `
 //   redis.call('set',KEYS[1],ARGV[1])
 //   local v = redis.call('get',KEY[1])
 //   return v
 // `;
-//   const lua = ` 
+//   const lua = `
 //   redis.call('set',KEY[i],ARGV[i])
 //   local v = redis.call('get',KEY[1])
 //   return v
 // `;
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        //   const lua = ` 
+        //   const lua = `
         //   redis.call('set','i','sud')
         //   local v = redis.call('get','i')
         //   return v
@@ -47,9 +47,9 @@ function main() {
   return members
 `;
         const redis = new ioredis_1.default();
-        const commandName = 'saddex';
+        const commandName = "saddex";
         redis.defineCommand(commandName, { lua });
-        const result = yield redis[commandName](1, ['1a', '2b'], (err) => {
+        const result = yield redis[commandName](1, ["1a", "2b"], (err) => {
             if (err)
                 console.log(`lua script error: ${commandName}`, err);
         });
@@ -66,5 +66,5 @@ void main();
 // query sort by x | y | time
 // avgPoint
 // maxX minX maxY minY
-// bestFitLine => nil |  a, b     
+// bestFitLine => nil |  a, b
 //# sourceMappingURL=redis_graph.js.map

@@ -26,7 +26,7 @@ const xyPointtest: number[][] = [
   [12, 1],
   [9, 4],
   [6, 9],
-  [1, 14]
+  [1, 14],
 ];
 
 // import loadmpoint = require("./loadmpoint");
@@ -72,7 +72,7 @@ async function main() {
     y = data[i+1])
     -- calculate for avg or whatever
   end
-
+  
   return true
 `;
 
@@ -94,8 +94,8 @@ async function main() {
     const luaParams = new LuaParams();
 
     points.forEach((e) => {
-      var a: number 
-      var b: number
+      var a: number;
+      var b: number;
 
       for (let i = 0; i < points.length; i++) {
         console.log("e1 :", e);

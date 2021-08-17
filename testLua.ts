@@ -1,5 +1,5 @@
 import IORedis from "ioredis";
-import LuaParams from "../redis-graph/LuaParams";
+import LuaParams from "./LuaParams";
 // hi im son
 // sa was dee kubb
 //test 23.05
@@ -124,7 +124,7 @@ async function main() {
           // })
           luaParams.add({
             key: String(v[0]),
-            argv: Number(v[1]),
+            argv: String(v[1]),
           });
         }
       }

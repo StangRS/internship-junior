@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ioredis_1 = require("ioredis");
-const LuaParams_1 = require("../redis-graph/LuaParams");
+const LuaParams_1 = require("./LuaParams");
 // hi im son
 // sa was dee kubb
 //test 23.05
@@ -122,7 +122,7 @@ function main() {
                             // })
                             luaParams.add({
                                 key: String(v[0]),
-                                argv: Number(v[1]),
+                                argv: String(v[1]),
                             });
                         }
                     }

@@ -83,6 +83,7 @@ for i=1,#KEYS,1 do
 end
 
  local data = redis.call('lrange', 'points')
+ 
 
 return true
 `;
@@ -141,13 +142,13 @@ return true
 
 void main();
 
-console.log("----------------------------------------------------------------");
-console.log(xyPointtest[0][0]);
-console.log(xyPointtest[0][1]);
-console.log(xyPointtest[1][0]);
-console.log(xyPointtest[1][1]);
-console.log(xyPointtest[2][0]);
-console.log(xyPointtest[2][1]);
+// console.log("----------------------------------------------------------------");
+// console.log(xyPointtest[0][0]);
+// console.log(xyPointtest[0][1]);
+// console.log(xyPointtest[1][0]);
+// console.log(xyPointtest[1][1]);
+// console.log(xyPointtest[2][0]);
+// console.log(xyPointtest[2][1]);
 
 // loadmpoint.default.load([]);
 

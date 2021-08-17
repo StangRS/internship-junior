@@ -1,13 +1,37 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+var __awaiter =
+  (this && this.__awaiter) ||
+  function (thisArg, _arguments, P, generator) {
+    function adopt(value) {
+      return value instanceof P
+        ? value
+        : new P(function (resolve) {
+            resolve(value);
+          });
+    }
     return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      function fulfilled(value) {
+        try {
+          step(generator.next(value));
+        } catch (e) {
+          reject(e);
+        }
+      }
+      function rejected(value) {
+        try {
+          step(generator["throw"](value));
+        } catch (e) {
+          reject(e);
+        }
+      }
+      function step(result) {
+        result.done
+          ? resolve(result.value)
+          : adopt(result.value).then(fulfilled, rejected);
+      }
+      step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
-};
+  };
 Object.defineProperty(exports, "__esModule", { value: true });
 const ioredis_1 = require("ioredis");
 const LuaParams_1 = require("./LuaParams");
@@ -21,19 +45,19 @@ const LuaParams_1 = require("./LuaParams");
 const xPoint = [8, 2, 11, 6, 5, 4, 12, 9, 6, 1];
 const yPoint = [3, 10, 3, 6, 8, 12, 1, 4, 9, 14];
 const xyPoint = [
-    [8, 2, 11, 6, 5, 4, 12, 9, 6, 1],
-    [3, 10, 3, 6, 8, 12, 1, 4, 9, 14],
+  [8, 2, 11, 6, 5, 4, 12, 9, 6, 1],
+  [3, 10, 3, 6, 8, 12, 1, 4, 9, 14],
 ];
 const xyPointtest = [
-    [8, 3],
-    [2, 10],
-    [6, 6],
-    [5, 8],
-    [4, 12],
-    [12, 1],
-    [9, 4],
-    [6, 9],
-    [1, 14],
+  [8, 3],
+  [2, 10],
+  [6, 6],
+  [5, 8],
+  [4, 12],
+  [12, 1],
+  [9, 4],
+  [6, 9],
+  [1, 14],
 ];
 // import loadmpoint = require("./loadmpoint");
 // import { METHODS } from 'http';
@@ -57,78 +81,88 @@ const xyPointtest = [
 //   return v
 // `;
 function main() {
-    return __awaiter(this, void 0, void 0, function* () {
-        //   const lua = `
-        //   for i=1,#KEYS,1 do
-        //     redis.call('rpush', 'points', KEYS[i])
-        //     redis.call('rpush', 'points', ARGV[i])
-        //   end
-        //   -- local data = redis.call('lrange', 'points', 0, -1)
-        //   -- data[1] => x point 0
-        //   -- data[2] => y point 0
-        //   -- data[3] => x point 1
-        //   -- data[4] => y point 1
-        //   -- for i=1,#data,2 do
-        //     x = data[i]
-        //     y = data[i+1])
-        //     -- calculate for avg or whatever
-        //   end
-        //   return true
-        // `;
-        const lua = `
-for i=1,#KEYS,1 do 
-  redis.call('rpush', 'points', KEYS[i])
-  redis.call('rpush', 'points', ARGV[i])
-end
+  return __awaiter(this, void 0, void 0, function* () {
+    //   const lua = `
+    //   for i=1,#KEYS,1 do
+    //     redis.call('rpush', 'points', KEYS[i])
+    //     redis.call('rpush', 'points', ARGV[i])
+    //   end
+    //   -- local data = redis.call('lrange', 'points', 0, -1)
+    //   -- data[1] => x point 0
+    //   -- data[2] => y point 0
+    //   -- data[3] => x point 1
+    //   -- data[4] => y point 1
+    //   -- for i=1,#data,2 do
+    //     x = data[i]
+    //     y = data[i+1])
+    //     -- calculate for avg or whatever
+    //   end
+    //   return true
+    // `;
+    const lua = `
+    for i=1,#KEYS,1 do 
+      redis.call('rpush', 'points', KEYS[i])
+      redis.call('rpush', 'points', ARGV[i])
+    end
 
- local data = redis.call('lrange', 'points')
+    -- local x = {}
+    -- local y = {}
+
+    local data = redis.call('lrange', 'points', 0, -1)
+    for i=1,#data,2 do
+        x = data[i]
+        y = data[i+1])
+        -- calculate for avg or whatever
+    end
  
-
-return true
-`;
-        const redis = new ioredis_1.default();
-        const commandName = "multiple";
-        redis.defineCommand(commandName, { lua });
-        //[8, 2, 11, 6, 5, 4, 12, 9, 6, 1],[3, 10, 3, 6, 8, 12, 1, 4, 9, 14 ]
-        //   const result = await (redis as any)[commandName](
-        //     10,
-        //     ['8','2','11','6','5','4','12','9','6','1','3','10','3','6','8','12','1','4','9','14'],
-        //     (err: any) => {
-        //       if (err) console.log(`lua script error: ${commandName}`, err);
-        //     },
-        //   );
-        //   console.log(result);
-        function load(points) {
-            return __awaiter(this, void 0, void 0, function* () {
-                const luaParams = new LuaParams_1.default();
-                points.forEach((e) => {
-                    var a;
-                    var b;
-                    for (let i = 0; i < points.length; i++) {
-                        console.log("e1 :", e);
-                        for (const [q, v] of Object.entries(e)) {
-                            console.log("v :", v);
-                            luaParams.add({
-                                key: String(v[0]),
-                                argv: String(v[1]),
-                            });
-                        }
-                    }
-                });
-                console.log("Point:" + JSON.stringify(points));
-                const result = yield redis[commandName](luaParams.argvCount(), luaParams.argvList(), (err) => {
-                    if (err)
-                        console.log(`lua script error: ${commandName}`, err);
-                });
-                console.log(`Result: ` + result);
-                return result;
-            });
-        }
-        // Load Data
-        for (let i = 0; i < xyPointtest.length; i++) {
-            load([{ xy: xyPointtest[i] }]);
-        }
-    });
+    return true
+    `;
+    const redis = new ioredis_1.default();
+    const commandName = "multiple";
+    redis.defineCommand(commandName, { lua });
+    //[8, 2, 11, 6, 5, 4, 12, 9, 6, 1],[3, 10, 3, 6, 8, 12, 1, 4, 9, 14 ]
+    //   const result = await (redis as any)[commandName](
+    //     10,
+    //     ['8','2','11','6','5','4','12','9','6','1','3','10','3','6','8','12','1','4','9','14'],
+    //     (err: any) => {
+    //       if (err) console.log(`lua script error: ${commandName}`, err);
+    //     },
+    //   );
+    //   console.log(result);
+    function load(points) {
+      return __awaiter(this, void 0, void 0, function* () {
+        const luaParams = new LuaParams_1.default();
+        points.forEach((e) => {
+          var a;
+          var b;
+          for (let i = 0; i < points.length; i++) {
+            console.log("e1 :", e);
+            for (const [q, v] of Object.entries(e)) {
+              console.log("v :", v);
+              luaParams.add({
+                key: String(v[0]),
+                argv: String(v[1]),
+              });
+            }
+          }
+        });
+        console.log("Point:" + JSON.stringify(points));
+        const result = yield redis[commandName](
+          luaParams.argvCount(),
+          luaParams.argvList(),
+          (err) => {
+            if (err) console.log(`lua script error: ${commandName}`, err);
+          }
+        );
+        console.log(`Result: ` + result);
+        return result;
+      });
+    }
+    // Load Data
+    for (let i = 0; i < xyPointtest.length; i++) {
+      load([{ xy: xyPointtest[i] }]);
+    }
+  });
 }
 void main();
 // console.log("----------------------------------------------------------------");

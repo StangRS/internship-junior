@@ -56,24 +56,35 @@ const xyPointtest: number[][] = [
 // `;
 
 async function main() {
-  const lua = `
-  for i=1,#KEYS,1 do 
-    redis.call('rpush', 'points', KEYS[i])
-    redis.call('rpush', 'points', ARGV[i])
-  end
+  //   const lua = `
+  //   for i=1,#KEYS,1 do
+  //     redis.call('rpush', 'points', KEYS[i])
+  //     redis.call('rpush', 'points', ARGV[i])
+  //   end
 
-  local data = redis.call('lrange', 'points')
-  -- data[1] => x point 0
-  -- data[2] => y point 0
-  -- data[3] => x point 1
-  -- data[4] => y point 1
-  for i=1,#data,2 do
-    x = data[i]
-    y = data[i+1])
-    -- calculate for avg or whatever
-  end
-  
-  return true
+  //   -- local data = redis.call('lrange', 'points', 0, -1)
+  //   -- data[1] => x point 0
+  //   -- data[2] => y point 0
+  //   -- data[3] => x point 1
+  //   -- data[4] => y point 1
+  //   -- for i=1,#data,2 do
+  //     x = data[i]
+  //     y = data[i+1])
+  //     -- calculate for avg or whatever
+  //   end
+
+  //   return true
+  // `;
+
+  const lua = `
+for i=1,#KEYS,1 do 
+  redis.call('rpush', 'points', KEYS[i])
+  redis.call('rpush', 'points', ARGV[i])
+end
+
+ local data = redis.call('lrange', 'points')
+
+return true
 `;
 
   const redis = new IORedis();
